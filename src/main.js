@@ -1,5 +1,5 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
 
 /**
  * import Toastr
@@ -9,29 +9,37 @@ import "vue-toastification/dist/index.css";
 
 /**
  * Tailwind CSS
-*/
-import './index.css'
+ */
+import "./index.css";
 
 /**
  * Mixins
  */
-import mixins from './mixins'
+import mixins from "./mixins";
 
 /**
  * Vue Router
  */
-import router from './router'
+import router from "./router";
+
+/**
+ * Vuex
+ */
+import store from "./store";
 
 //create App Vue
-const app = createApp(App)
+const app = createApp(App);
 
 //gunakan "Toast" di Vue Js dengan plugin "use"
-app.use(Toast)
+app.use(Toast);
 
 //gunakan "Mixins" di Vue Js dengan plugin "use"
-app.mixin(mixins)
+app.mixin(mixins);
 
 //gunakan "router" di Vue Js dengan plugin "use"
-app.use(router)
+app.use(router);
 
-app.mount('#app')
+//gunakan "store" di Vue Js dengan plugin "use"
+app.use(store);
+
+app.mount("#app");
