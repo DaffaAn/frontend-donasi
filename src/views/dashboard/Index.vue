@@ -21,7 +21,7 @@
         </div>
         <div class="border-2 border-gray-200 mt-3 mb-2"></div>
 
-        <a href="#">
+        <router-link :to="{ name: 'donation.index' }">
           <div
             class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3"
           >
@@ -29,7 +29,7 @@
               <i class="fa fa-heart" aria-hidden="true"></i> Donasi Saya
             </div>
           </div>
-        </a>
+        </router-link>
 
         <a href="#">
           <div
@@ -51,7 +51,7 @@
           </div>
         </a>
 
-        <a href="#">
+        <a @click="logout" style="cursor: pointer">
           <div
             class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3"
           >
@@ -69,8 +69,14 @@
 //hook vuex
 import { useStore } from "vuex";
 
+//hook vue router
+import { useRouter } from "vue-router";
+
 //hook vue
 import { computed, onMounted } from "vue";
+
+//hook Toast
+import { useToast } from "vue-toastification";
 
 export default {
   name: "DashboardComponent",
@@ -78,6 +84,12 @@ export default {
   setup() {
     //store vuex
     const store = useStore();
+
+    //vue router
+    const router = useRouter();
+
+    // Same interface as this.$toast
+    const toast = useToast();
 
     //mounted
     onMounted(() => {
@@ -90,8 +102,22 @@ export default {
       return store.state.auth.user;
     });
 
+    //method logout
+    function logout() {
+      //panggil action "logout" di dalam module "auth"
+      store.dispatch("auth/logout").then(() => {
+        //jika berhasil, akan di arahkan ke route login
+        router.push({
+          name: "login",
+        });
+
+        toast.success("Logout Berhasil!");
+      });
+    }
+
     //return a state and function
     return {
+      logout, // <-- method logout
       user, // <-- state user
     };
   },

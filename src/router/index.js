@@ -28,6 +28,18 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/donation",
+    name: "donation.index",
+    component: () =>
+      import(
+        /* webpackChunkName: "donationIndex" */ "@/views/donation/Index.vue"
+      ),
+    meta: {
+      //chek is loggedIn
+      requiresAuth: true,
+    },
+  },
 ];
 
 //create router

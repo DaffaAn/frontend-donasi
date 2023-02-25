@@ -20,8 +20,8 @@
         </div>
 
         <div>
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'donation.index' }"
             class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center"
           >
             <img
@@ -31,7 +31,7 @@
               src="@/assets/images/heart.png"
             />
             <span class="block text-xs">Donasi Saya</span>
-          </a>
+          </router-link>
         </div>
 
         <div>
