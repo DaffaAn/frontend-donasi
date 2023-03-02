@@ -40,6 +40,16 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/profile",
+    name: "profile",
+    component: () =>
+      import(/* webpackChunkName: "profile" */ "@/views/profile/Index.vue"),
+    meta: {
+      //chek is loggedIn
+      requiresAuth: true,
+    },
+  },
 ];
 
 //create router
