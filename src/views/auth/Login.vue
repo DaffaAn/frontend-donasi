@@ -48,7 +48,7 @@
 
 <script>
 //hook vue
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted } from "vue";
 
 //hook vuex
 import { useStore } from "vuex";
@@ -86,6 +86,13 @@ export default {
       //define variable
       let email = user.email;
       let password = user.password;
+
+      //check user is loggedIn
+      onMounted(() => {
+        if (store.getters["auth/isLoggedIn"]) {
+          router.push({ name: "dashboard" });
+        }
+      });
 
       //panggil actions "login" dari module "auth" Vuex
       store

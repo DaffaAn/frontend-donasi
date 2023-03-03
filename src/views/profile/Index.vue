@@ -1,7 +1,11 @@
 <template>
   <div class="pb-20 pt-20">
     <div class="container mx-auto grid grid-cols-1 p-3 sm:w-full md:w-5/12">
-      <form method="POST" enctype="multipart/form-data">
+      <form
+        @submit.prevent="updateProfile"
+        method="POST"
+        enctype="multipart/form-data"
+      >
         <div class="bg-white p-5 rounded-md shadow-md mb-5">
           <div class="flex flex-col justify-center items-center relative">
             <div>
@@ -13,6 +17,7 @@
             <div class="mt-4">
               <input
                 type="file"
+                @change="onFileChange"
                 class="rounded bg-gray-300 p-2 w-full shadow-sm"
               />
             </div>
@@ -59,10 +64,16 @@
 
 <script>
 //hook vue
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 //hook vuex
 import { useStore } from "vuex";
+
+//hook vue router
+import { useRouter } from "vue-router";
+
+//hook Toast
+import { useToast } from "vue-toastification";
 
 export default {
   name: "ProfileComponent",
@@ -70,6 +81,12 @@ export default {
   setup() {
     //store vuex
     const store = useStore();
+
+    //route
+    const router = useRouter();
+
+    //same interface as this.$toast
+    const toast = useToast();
 
     //onMounted akan menjalankan action getProfile di module profile
     onMounted(() => {
@@ -81,8 +98,64 @@ export default {
       return store.state.profile.profile;
     });
 
+    //state for image avatar
+    const imageAvatar = ref(null);
+
+    //validation state
+    const validation = ref([]);
+
+    //get file avatar onChange
+    function onFileChange(e) {
+      //get image
+      imageAvatar.value = e.target.files[0];
+
+      //check fileType
+      if (!imageAvatar.value.type.match("image.*")) {
+        //if fileType not allowed, then clear value and set null
+        e.target.value = "";
+        imageAvatar.value = null;
+
+        //show toastr error
+        toast.error("Extensi File Tidak Diizinkan!");
+      }
+    }
+
+    //method update profile
+    function updateProfile() {
+      //formdata
+      let formData = new FormData();
+
+      formData.append("avatar", imageAvatar.value);
+      formData.append("name", profile.value.name);
+
+      //panggil actions "updateProfile" dari module "profile"
+      store
+        .dispatch("profile/updateProfile", formData)
+        .then(() => {
+          router.push({ name: "dashboard" });
+
+          toast.success("Profile Berhasil Diupdate!");
+
+          //set imageAvatar to null
+          imageAvatar.value = null;
+        })
+        .catch((error) => {
+          //assign validaation message
+          validation.value = error;
+
+          //show validation name with toast
+          if (validation.value.name) {
+            toast.error(`${validation.value.name[0]}`);
+          }
+        });
+    }
+
     return {
       profile, // <-- state profile
+      toast, // <-- hook Toast
+      validation, // <-- state validation
+      onFileChange, // <-- method onFileChange
+      updateProfile, // <-- method updateProfile
     };
   },
 };
