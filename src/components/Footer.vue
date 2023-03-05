@@ -5,8 +5,8 @@
         class="container mx-auto grid grid-cols-4 gap-4 p-2 sm:w-full md:w-5/12"
       >
         <div>
-          <a
-            href="#"
+          <router-link
+            :to="{ name: 'home' }"
             class="w-full focus:text-teal-500 hover:text-teal-500 justify-center inline-block text-center"
           >
             <img
@@ -16,7 +16,7 @@
               src="@/assets/images/home.png"
             />
             <span class="block text-xs">Beranda</span>
-          </a>
+          </router-link>
         </div>
 
         <div>
