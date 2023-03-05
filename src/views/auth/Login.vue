@@ -87,13 +87,6 @@ export default {
       let email = user.email;
       let password = user.password;
 
-      //check user is loggedIn
-      onMounted(() => {
-        if (store.getters["auth/isLoggedIn"]) {
-          router.push({ name: "dashboard" });
-        }
-      });
-
       //panggil actions "login" dari module "auth" Vuex
       store
         .dispatch("auth/login", {
@@ -126,6 +119,13 @@ export default {
           }
         });
     }
+
+    //check user is loggedIn
+    onMounted(() => {
+      if (store.getters["auth/isLoggedIn"]) {
+        router.push({ name: "dashboard" });
+      }
+    });
 
     //return object
     return {
