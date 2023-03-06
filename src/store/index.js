@@ -8,13 +8,16 @@ import auth from "./module/auth";
 import donation from "./module/donation";
 
 //import module profile
-import slider from "./module/slider";
+import profile from "./module/profile";
 
 //import module slider
-import profile from "./module/profile";
+import slider from "./module/slider";
 
 //import module category
 import category from "./module/category";
+
+//import module campaign
+import campaign from "./module/campaign";
 
 //create store vuex
 export default createStore({
@@ -24,5 +27,6 @@ export default createStore({
     profile, // <-- module profile
     slider, // <-- module slider
     category, // <-- module category
+    campaign, // <-- module campaign
   },
 });
