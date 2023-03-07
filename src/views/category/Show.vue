@@ -21,11 +21,11 @@
                   height="512"
                 />
                 <div class="pt-6 p-5 md:p-3 text-center md:text-left space-y-4">
-                  <a href="#">
+                  <router-link :to="{ name: 'campaign.show', params: { slug: campaign.slug } }">
                     <p class="text-sm font-semibold">
                       {{ campaign.title }}
                     </p>
-                  </a>
+                  </router-link>
                   <div class="font-medium">
                     <div class="mt-3 text-gray-500 text-xs">
                       {{ campaign.user.name }}

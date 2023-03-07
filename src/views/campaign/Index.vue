@@ -1,14 +1,6 @@
 <template>
   <div class="pb-20 pt-20">
     <div class="container mx-auto grid grid-cols-1 p-3 sm:w-full md:w-5/12">
-      <!-- slider -->
-      <div class="grid grid-cols-1 bg-white rounded shadow-md p-1 text-sm">
-        <Slider />
-      </div>
-
-      <!-- categoryHome -->
-      <CategoryHome />
-
       <div v-if="campaigns.length > 0">
         <div class="mt-5 grid grid-cols-4 gap-4" v-for="campaign in campaigns" :key="campaign.id">
           <div class="col-span-4">
@@ -58,17 +50,14 @@
                       <div class="relative pt-1">
                         <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
                           <div
-                            :style="{
-                              width: percentage(0, campaign.target_donation) + '%',
-                            }"
+                            :style="{ width: percentage(0, campaign.target_donation) + '%' }"
                             class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
                           ></div>
                         </div>
                       </div>
 
                       <p class="text-xs text-gray-500">
-                        <span class="font-bold text-blue-400">Rp. 0 </span>
-                        terkumpul dari
+                        <span class="font-bold text-blue-400">Rp. 0 </span> terkumpul dari
                         <span class="font-bold"
                           >Rp. {{ formatPrice(campaign.target_donation) }}</span
                         >
@@ -112,21 +101,13 @@ import { computed, onMounted } from "vue";
 //vuex
 import { useStore } from "vuex";
 
-//component slider
-import Slider from "@/components/Slider.vue";
-
-//component categoryHome
-import CategoryHome from "@/components/CategoryHome.vue";
-
 //vue content loader
 import { FacebookLoader } from "vue-content-loader";
 
 export default {
-  name: "HomeComponent",
+  name: "CampaignIndexComponent",
 
   components: {
-    Slider, // <-- register component slider
-    CategoryHome, // <-- register component CategoryHome
     FacebookLoader, // <-- register component FacebooLoader dari Vue Content Loader
   },
 
@@ -143,10 +124,6 @@ export default {
     const campaigns = computed(() => {
       return store.state.campaign.campaigns;
     });
-
-    /**
-     * LOADMORE
-     */
 
     //get status NextExists
     const nextExists = computed(() => {
@@ -172,3 +149,5 @@ export default {
   },
 };
 </script>
+
+<style></style>
