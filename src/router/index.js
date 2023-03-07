@@ -9,20 +9,17 @@ const routes = [
   {
     path: "/register",
     name: "register",
-    component: () =>
-      import(/* webpackChunkName: "register" */ "@/views/auth/Register.vue"),
+    component: () => import(/* webpackChunkName: "register" */ "@/views/auth/Register.vue"),
   },
   {
     path: "/login",
     name: "login",
-    component: () =>
-      import(/* webpackChunkName: "login" */ "@/views/auth/Login.vue"),
+    component: () => import(/* webpackChunkName: "login" */ "@/views/auth/Login.vue"),
   },
   {
     path: "/dashboard",
     name: "dashboard",
-    component: () =>
-      import(/* webpackChunkName: "dashboard" */ "@/views/dashboard/Index.vue"),
+    component: () => import(/* webpackChunkName: "dashboard" */ "@/views/dashboard/Index.vue"),
     meta: {
       //chek is loggedIn
       requiresAuth: true,
@@ -31,10 +28,7 @@ const routes = [
   {
     path: "/donation",
     name: "donation.index",
-    component: () =>
-      import(
-        /* webpackChunkName: "donationIndex" */ "@/views/donation/Index.vue"
-      ),
+    component: () => import(/* webpackChunkName: "donationIndex" */ "@/views/donation/Index.vue"),
     meta: {
       //chek is loggedIn
       requiresAuth: true,
@@ -43,8 +37,7 @@ const routes = [
   {
     path: "/profile",
     name: "profile",
-    component: () =>
-      import(/* webpackChunkName: "profile" */ "@/views/profile/Index.vue"),
+    component: () => import(/* webpackChunkName: "profile" */ "@/views/profile/Index.vue"),
     meta: {
       //chek is loggedIn
       requiresAuth: true,
@@ -54,9 +47,7 @@ const routes = [
     path: "/profile/password",
     name: "profile.password",
     component: () =>
-      import(
-        /* webpackChunkName: "profilePassword" */ "@/views/profile/Password.vue"
-      ),
+      import(/* webpackChunkName: "profilePassword" */ "@/views/profile/Password.vue"),
     meta: {
       //chek is loggedIn
       requiresAuth: true,
@@ -65,8 +56,17 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () =>
-      import(/* webpackChunkName: "home" */ "@/views/home/Index.vue"),
+    component: () => import(/* webpackChunkName: "home" */ "@/views/home/Index.vue"),
+  },
+  {
+    path: "/category",
+    name: "category.index",
+    component: () => import(/* webpackChunkName: "categoryIndex" */ "@/views/category/Index.vue"),
+  },
+  {
+    path: "/category/:slug",
+    name: "category.show",
+    component: () => import(/* webpackChunkName: "categoryShow" */ "@/views/category/Show.vue"),
   },
 ];
 

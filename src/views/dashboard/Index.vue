@@ -11,9 +11,7 @@
               {{ user.name }}
             </div>
             <div class="mt-3">
-              <a
-                href="#"
-                class="bg-gray-700 py-1 px-3 rounded shadow-md text-white uppercase"
+              <a href="#" class="bg-gray-700 py-1 px-3 rounded shadow-md text-white uppercase"
                 >Edit Profile</a
               >
             </div>
@@ -22,19 +20,13 @@
         <div class="border-2 border-gray-200 mt-3 mb-2"></div>
 
         <a href="#">
-          <div
-            class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3"
-          >
-            <div class="col-span-5">
-              <i class="fa fa-heart" aria-hidden="true"></i> Donasi Saya
-            </div>
+          <div class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3">
+            <div class="col-span-5"><i class="fa fa-heart" aria-hidden="true"></i> Donasi Saya</div>
           </div>
         </a>
 
         <a href="#">
-          <div
-            class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3"
-          >
+          <div class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3">
             <div class="col-span-5">
               <i class="fa fa-user-circle" aria-hidden="true"></i> Profile Saya
             </div>
@@ -42,19 +34,13 @@
         </a>
 
         <router-link :to="{ name: 'profile.password' }">
-          <div
-            class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3"
-          >
-            <div class="col-span-5">
-              <i class="fa fa-key" aria-hidden="true"></i> Ubah Password
-            </div>
+          <div class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3">
+            <div class="col-span-5"><i class="fa fa-key" aria-hidden="true"></i> Ubah Password</div>
           </div>
         </router-link>
 
         <a href="#">
-          <div
-            class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3"
-          >
+          <div class="grid grid-cols-5 gap-4 bg-gray-300 p-3 rounded-md shadow-sm mb-3">
             <div class="col-span-5">
               <i class="fa fa-sign-out-alt" aria-hidden="true"></i> Logout
             </div>

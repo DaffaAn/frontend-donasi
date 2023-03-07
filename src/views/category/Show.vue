@@ -1,16 +1,16 @@
 <template>
   <div class="pb-20 pt-20">
-    <div class="container mx-auto grid grid-cols-1 p-3 sm:w-full md:w-5/12">
-      <!-- slider -->
-      <div class="grid grid-cols-1 bg-white rounded shadow-md p-1 text-sm">
-        <Slider />
-      </div>
+    <div class="container mx-auto grid grid-cols-1 p-5 sm:w-full md:w-5/12">
+      <div v-if="campaignCategory.length > 0">
+        <h3>
+          <i class="fa fa-list-ul"></i> KATEGORI <strong>{{ category.name.toUpperCase() }}</strong>
+        </h3>
 
-      <!-- categoryHome -->
-      <CategoryHome />
-
-      <div v-if="campaigns.length > 0">
-        <div class="mt-5 grid grid-cols-4 gap-4" v-for="campaign in campaigns" :key="campaign.id">
+        <div
+          class="mt-5 grid grid-cols-4 gap-4"
+          v-for="campaign in campaignCategory"
+          :key="campaign.id"
+        >
           <div class="col-span-4">
             <div class="bg-white rounded-md shadow-md p-2">
               <div class="md:flex rounded-xl md:p-0">
@@ -20,7 +20,7 @@
                   width="384"
                   height="512"
                 />
-                <div class="w-full pt-6 p-5 md:p-3 text-center md:text-left space-y-4">
+                <div class="pt-6 p-5 md:p-3 text-center md:text-left space-y-4">
                   <a href="#">
                     <p class="text-sm font-semibold">
                       {{ campaign.title }}
@@ -58,17 +58,14 @@
                       <div class="relative pt-1">
                         <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
                           <div
-                            :style="{
-                              width: percentage(0, campaign.target_donation) + '%',
-                            }"
+                            :style="{ width: percentage(0, campaign.target_donation) + '%' }"
                             class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
                           ></div>
                         </div>
                       </div>
 
                       <p class="text-xs text-gray-500">
-                        <span class="font-bold text-blue-400">Rp. 0 </span>
-                        terkumpul dari
+                        <span class="font-bold text-blue-400">Rp. 0 </span> terkumpul dari
                         <span class="font-bold"
                           >Rp. {{ formatPrice(campaign.target_donation) }}</span
                         >
@@ -85,90 +82,55 @@
         </div>
       </div>
       <div v-else>
-        <div
-          v-for="index in 2"
-          :key="index"
-          class="grid grid-cols-1 bg-white rounded shadow-md p-3 text-sm mt-4 mb-4"
-        >
-          <FacebookLoader class="h-24" />
+        <div class="mb-3 bg-red-500 text-white p-4 rounded-md">
+          Data Campaign Berdasarkan Kategori <strong>{{ category.name }}</strong> Belum Tersedia!
         </div>
       </div>
-    </div>
-
-    <div class="text-center mt-4 mb-4" v-show="nextExists">
-      <a
-        @click="loadMore"
-        class="bg-gray-700 text-white p-2 px-3 rounded-md shadow-md focus:outline-none focus:bg-gray-900 cursor-pointer"
-        >LIHAT SEMUA <i class="fa fa-long-arrow-alt-right"></i
-      ></a>
     </div>
   </div>
 </template>
 
 <script>
 //hook vue
-import { computed, onMounted } from "vue";
+import { onMounted, computed } from "vue";
 
-//vuex
+//hook vuex
 import { useStore } from "vuex";
 
-//component slider
-import Slider from "@/components/Slider.vue";
-
-//component categoryHome
-import CategoryHome from "@/components/CategoryHome.vue";
-
-//vue content loader
-import { FacebookLoader } from "vue-content-loader";
+//hook vue router
+import { useRoute } from "vue-router";
 
 export default {
-  name: "HomeComponent",
-
-  components: {
-    Slider, // <-- register component slider
-    CategoryHome, // <-- register component CategoryHome
-    FacebookLoader, // <-- register component FacebooLoader dari Vue Content Loader
-  },
+  name: "CategoryShowComponent",
 
   setup() {
     //store vuex
     const store = useStore();
 
-    //onMounted akan menjalankan action "getCampaign" di module "campaign"
+    //const route
+    const route = useRoute();
+
+    //onMounted akan menjalankan action "getDetailCategory" di module "category"
     onMounted(() => {
-      store.dispatch("campaign/getCampaign");
+      store.dispatch("category/getDetailCategory", route.params.slug);
     });
 
-    //digunakan untuk get data  state "campaigns" di module "campaign"
-    const campaigns = computed(() => {
-      return store.state.campaign.campaigns;
+    //digunakan untuk get data state "category" di module "category"
+    const category = computed(() => {
+      return store.state.category.category;
     });
 
-    /**
-     * LOADMORE
-     */
-
-    //get status NextExists
-    const nextExists = computed(() => {
-      return store.state.campaign.nextExists;
+    //digunakan untuk get data campaign di satate "campaignCategory" di module "category"
+    const campaignCategory = computed(() => {
+      return store.state.category.campaignCategory;
     });
-
-    //get nextPage
-    const nextPage = computed(() => {
-      return store.state.campaign.nextPage;
-    });
-
-    //loadMore function
-    function loadMore() {
-      store.dispatch("campaign/getLoadMore", nextPage.value);
-    }
 
     return {
-      campaigns, // <-- return campaigns
-      nextExists, // <-- return nextExists,
-      nextPage, // <-- return nextPage
-      loadMore, // <-- return loadMore
+      category, // <-- state category
+      campaignCategory, // <-- state campaignCategory
     };
   },
 };
 </script>
+
+<style></style>
