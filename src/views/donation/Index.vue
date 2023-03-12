@@ -7,11 +7,7 @@
 
         <div v-if="donations.length > 0">
           <div class="mt-5 grid grid-cols-4 gap-4">
-            <div
-              class="col-span-4"
-              v-for="donation in donations"
-              :key="donation.id"
-            >
+            <div class="col-span-4" v-for="donation in donations" :key="donation.id">
               <div class="bg-gray-200 rounded-md shadow-sm p-2">
                 <figure class="md:flex rounded-xl md:p-0">
                   <img
@@ -21,14 +17,9 @@
                     width="384"
                     height="512"
                   />
-                  <div
-                    class="w-full pt-6 p-5 md:p-3 text-center md:text-left space-y-4"
-                  >
+                  <div class="w-full pt-6 p-5 md:p-3 text-center md:text-left space-y-4">
                     <router-link
-                      :to="{
-                        name: 'campaign.show',
-                        params: { slug: donation.campaign.slug },
-                      }"
+                      :to="{ name: 'campaign.show', params: { slug: donation.campaign.slug } }"
                     >
                       <p class="text-sm font-semibold">
                         {{ donation.campaign.title }}
@@ -36,9 +27,7 @@
                     </router-link>
                     <figcaption class="font-medium">
                       <p class="text-xs text-gray-500 mt-5">
-                        <span class="font-bold text-gray-500 mr-3">{{
-                          donation.created_at
-                        }}</span>
+                        <span class="font-bold text-gray-500 mr-3">{{ donation.created_at }}</span>
                         <span class="font-bold text-blue-900"
                           >Rp. {{ formatPrice(donation.amount) }}</span
                         >
@@ -46,6 +35,7 @@
                     </figcaption>
                     <div v-if="donation.status == 'pending'">
                       <button
+                        @click="payment(donation.snap_token)"
                         class="w-full bg-yellow-600 rounded shadow-sm text-xs py-1 px-2 focus:outline-none"
                       >
                         BAYAR SEKARANG
@@ -112,12 +102,18 @@ import { computed, onMounted } from "vue";
 //hook vuex
 import { useStore } from "vuex";
 
+//hook vue router
+import { useRouter } from "vue-router";
+
 export default {
   name: "DonationComponent",
 
   setup() {
     //store vuex
     const store = useStore();
+
+    //router
+    const router = useRouter();
 
     //onMounted akan menjalankan action "getDonation" di module "donation"
     onMounted(() => {
@@ -144,11 +140,27 @@ export default {
       store.dispatch("donation/getLoadmore", nextPage.value);
     }
 
+    //function payment "Midtrans"
+    function payment(snap_token) {
+      window.snap.pay(snap_token, {
+        onSuccess: function () {
+          router.push({ name: "donation.index" });
+        },
+        onPending: function () {
+          router.push({ name: "donation.index" });
+        },
+        onError: function () {
+          router.push({ name: "donation.index" });
+        },
+      });
+    }
+
     return {
       donations, // <-- return donations
       nextExists, // <-- return nextExists
       nextPage, // <-- return nextPage
       loadMore, // <-- return loadMore
+      payment, // <-- return payment Midtrans Snap
     };
   },
 };

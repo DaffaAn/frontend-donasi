@@ -32,7 +32,7 @@ const donation = {
       state.nextPage = nextPage;
     },
 
-    //set state "donations" dengan data dari response loadmore
+    //set state campaigns dengan data dari response loadmore
     SET_LOADMORE(state, data) {
       data.forEach((row) => {
         state.donations.push(row);
@@ -104,6 +104,29 @@ const donation = {
           //show error log dari response
           console.log(error);
         });
+    },
+
+    //storeDonation
+    storeDonation({ commit }, data) {
+      //define callback promise
+      return new Promise((resolve, reject) => {
+        //get data token dan user
+        const token = localStorage.getItem("token");
+
+        //set axios header dengan type Authorization + Bearer token
+        Api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        //send data donatiion ke server
+        Api.post("/donation", data)
+          .then((response) => {
+            commit("");
+            resolve(response);
+          })
+          .catch((error) => {
+            //show error log dari response
+            reject(error.response.data);
+          });
+      });
     },
   },
 

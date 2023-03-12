@@ -76,7 +76,17 @@ const routes = [
   {
     path: "/campaign/:slug",
     name: "campaign.show",
-    component: () => import(/* webpackChunkName: "campaignShow" */ "@/views/campaign/Show.vue"),
+    component: () =>
+      import(/* webpackChunkName: "campaignShow" */ "@/views/campaign/ShowCampaign.vue"),
+  },
+  {
+    path: "/donation/create/:slug",
+    name: "donation.create",
+    component: () => import(/* webpackChunkName: "donationCreate" */ "@/views/donation/Create.vue"),
+    meta: {
+      //chek is loggedIn
+      requiresAuth: true,
+    },
   },
 ];
 
