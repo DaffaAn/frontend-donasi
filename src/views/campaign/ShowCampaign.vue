@@ -187,6 +187,7 @@ export default {
       user, // <-- user
       sumDonation, // <-- sumDonation
       donations, // <-- donations
+      route, // <-- route
     };
   },
 };

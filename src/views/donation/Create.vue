@@ -9,6 +9,9 @@
           <label class="mt-2 font-bold text-lg">Rp.</label>
           <input
             type="number"
+            min="1"
+            step="1"
+            onkeypress="return event.keyCode === 8 || event.charCode >= 48 && event.charCode <= 57"
             class="mt-2 appearance-none w-full bg-gray-200 border border-gray-200 rounded h-15 shadow-sm placeholder-gray-600 focus:outline-none focus:placeholder-gray-600 focus:bg-white focus-within:text-gray-600 p-2 text-right text-xl"
             placeholder="0"
             v-model="donation.amount"
