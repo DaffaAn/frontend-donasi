@@ -19,6 +19,9 @@ import category from "./module/category";
 //import module campaign
 import campaign from "./module/campaign";
 
+//import module campaign
+import about from "./module/about";
+
 //create store vuex
 export default createStore({
   modules: {
@@ -28,5 +31,6 @@ export default createStore({
     slider, // <-- module slider
     category, // <-- module category
     campaign, // <-- module campaign
+    about, // <-- module about
   },
 });
