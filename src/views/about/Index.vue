@@ -1,5 +1,5 @@
 <template>
-  <div class="pb-20 pt-20 text-center">HALAMAN ABOUT</div>
+  <div class="pb-20 pt-20"></div>
   <div class="mt-5 grid gap-4 ml-10 mr-10">
     <div class="bg-white rounded-md shadow-md p-2">
       <div class="md:flex rounded md:p-0">
