@@ -79,8 +79,8 @@ export default {
     //method store donation
     function storeDonation() {
       //check minimal donasi
-      if (donation.amount < 10000) {
-        toast.error("Donasi Minimal Rp. 10.000");
+      if (donation.amount < 1000) {
+        toast.error("Donasi Minimal Rp. 1.000");
         return false;
       }
 
